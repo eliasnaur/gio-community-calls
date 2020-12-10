@@ -1,0 +1,55 @@
+Gio Compute Renderer
+Community Call December 2020
+
+Elias Naur
+mail@eliasnaur.com
+@eliasnaur
+https://gioui.org
+
+* What is it?
+
+- A new renderer for 2D vector graphics.
+- Based on Raph Linus' excellent [[https://github.com/linebender/piet-gpu][piet-gpu]].
+- Runs on GPUs that supports [[https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units][general purpose programming]].
+
+* What's wrong with the old one?
+
+It runs on the [[https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview][graphics pipeline intended for 3D graphics]].
+
+However, [[https://blog.mecheye.net/2019/05/why-is-2d-graphics-is-harder-than-3d-graphics/][a 3D pipeline is not optimal for 2D]].
+
+Which means that the old renderer is slow and complex, but most importantly:
+
+There's no realistic way to running it on the CPU!
+
+
+* piet-gpu
+
+- [[https://raphlinus.github.io/rust/graphics/gpu/2020/06/13/fast-2d-rendering.html][Fast]].
+- Simple(r) to implement.
+- Execution model simple enough to [[https://github.com/vron/compute][run on the CPU]].
+- Easier to support strokes, gradients, drop-shadows etc.
+
+
+* What's the catch?
+
+- piet-gpu is not yet production ready.
+- Requires newer GPUs (OpenGL ES 3.1 vs OpenGL 2.0 + extensions).
+- No support on browsers (upcoming WebGPU notwithstanding).
+- CPU rendering possible, yet much slower than GPU.
+
+* Roadmap
+
+Now
+
+- Complete the [[https://git.sr.ht/~eliasnaur/gio/tree/compute][Gio implementation]].
+
+Soon(ish)
+
+- Windows (Direct3D 11), macOS/iOS (Metal) support.
+- Make it default on supported GPUs.
+
+Later
+
+- Implement performant CPU version.
+- Delete old renderer.
