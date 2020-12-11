@@ -1,3 +1,3 @@
-Slides from the December 2020 [Gio](https://gioui.org) community call.
+Slides from [Gio](https://gioui.org) community calls.
 
-[Online version](https://go-talks.appspot.com/github.com/eliasnaur/community-call-dec-2020/community-call-dec-2020.slide).
+[Online version](https://go-talks.appspot.com/github.com/eliasnaur/gio-community-calls/community-call-dec-2020.slide).
