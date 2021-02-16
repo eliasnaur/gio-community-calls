@@ -1,0 +1,36 @@
+Gio Compute Status
+Community Call February 2021
+
+Elias Naur
+mail@eliasnaur.com
+@eliasnaur
+https://gioui.org
+
+* What is it?
+
+- A faster and more featureful renderer for 2D vector graphics.
+- Based on Raph Linus' excellent [[https://github.com/linebender/piet-gpu][piet-gpu]].
+- Runs on GPUs that support [[https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units][general purpose programming]].
+
+The goal is to completely replace the original renderer.
+
+* Status
+
+- Merged, not yet default. To make it default, use the GIORENDERER variable:
+
+	GIORENDERER=forcecompute go build/run ...
+
+- CPU fallback based on [[https://github.com/google/swiftshader][SwiftShader]] works on amd64.
+
+* TODO
+
+- Add arm64, arm support to [[https://git.sr.ht/~eliasnaur/compute][GLSL-to-CPU compiler]].
+- Optimize renderer. Goal is reasonable CPU renderer performance on low-spec Android phones.
+- Windows (Direct3D 11), macOS/iOS (Metal) support.
+
+I'm working on the two first; help with D3D, Metal much appreciated.
+
+* Thorny issues
+
+- CPU fallback uses Cgo, which is difficult on Windows.
+- Compute doesn't (yet) work in browsers. CPU fallback likely too slow.
