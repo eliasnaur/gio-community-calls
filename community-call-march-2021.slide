@@ -1,0 +1,47 @@
+Gio Compute Status #2
+Community Call March 2021
+
+Elias Naur
+mail@eliasnaur.com
+@eliasnaur
+https://gioui.org
+
+* What is it?
+
+- A faster and more featureful renderer for 2D vector graphics.
+- Based on Raph Linus' excellent [[https://github.com/linebender/piet-gpu][piet-gpu]].
+- Runs on GPUs that supports [[https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units][general purpose programming]].
+- To use it, use the GIORENDERER variable:
+
+	GIORENDERER=forcecompute go build/run ...
+
+The goal is to completely replace the original renderer.
+
+* Status
+
+- Linux and Android support.
+
+- amd64 and arm64 CPU fallback on the [[https://git.sr.ht/~eliasnaur/gio/tree/cpu-compute][cpu-compute branch]].
+- Native support for cubic (third-order) curves and simple (round caps and joins) strokes. They no longer use the slow (but useful) fallbacks.
+- Expect to make compute the default renderer soon. Please test your programs for correctness.
+
+* TODO (short term)
+
+- Add 32-bit arm support to [[https://git.sr.ht/~eliasnaur/compute][GLSL-to-CPU compiler]]. Probably works already, but haven't tested.
+- Optimize renderer. Goal is reasonable CPU renderer performance on low-spec Android phones.
+- Windows (Direct3D 12), macOS/iOS (Metal) support.
+
+I'm working on the first two; if you can help with D3D or Metal, let me know.
+
+* TODO (long term)
+
+- Support all stroke styles in the GPU programs, for considerable speedup and removal of slow fallback code.
+- Support gradients, perhaps in coordination with [[https://github.com/linebender/piet-gpu/pull/72#issuecomment-802922377][upstream piet-gpu]].
+- Dropshadow support.
+
+No immediate plans to work on these.
+
+* Thorny issues
+
+- CPU fallback uses Cgo, which is difficult on Windows.
+- Compute doesn't (yet) in browsers. CPU fallback likely too slow.
